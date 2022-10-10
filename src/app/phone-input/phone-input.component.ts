@@ -59,9 +59,9 @@ export class PhoneInputComponent implements OnInit {
   @ViewChild('selectPhone') selectPhone?: ElementRef;
 
 
-  @Output() phoneEvent = new EventEmitter<string>();
-  @Output() phoneData = new EventEmitter<PhoneDATA>();
-  @Output() country = new EventEmitter<string>();
+  @Output() phoneEvent = new EventEmitter<string>(true);
+  @Output() phoneData = new EventEmitter<PhoneDATA>(true);
+  @Output() country = new EventEmitter<string>(true);
 
 
   hasIcon: boolean = false;

@@ -32,6 +32,6 @@ export class AppComponent {
   }
 
   onSubmit(): void {
-    console.log({ formStatus: this.form.status })
+    this.form.markAllAsTouched();
   }
 }
