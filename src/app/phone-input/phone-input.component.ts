@@ -1,5 +1,4 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
-// import { find } from 'lodash';
 import parsePhoneNumber from "libphonenumber-js";
 
 import allCountries from './all-countries';

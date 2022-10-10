@@ -1,6 +1,6 @@
 {
-  "name": "phone-input",
-  "version": "0.0.0",
+  "name": "@lbgm/phone-input",
+  "version": "1.0.0",
   "engines": {
     "node": ">=14.18.3",
     "npm": ">=6.14.15"
@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "libphonenumber-js": "^1.10.13",
-    "lodash": "^4.17.21",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -32,7 +31,6 @@
     "@angular/cli": "~12.2.7",
     "@angular/compiler-cli": "~12.2.0",
     "@types/jasmine": "~3.8.0",
-    "@types/lodash": "^4.14.186",
     "@types/node": "^12.11.1",
     "autoprefixer": "^10.4.12",
     "jasmine-core": "~3.8.0",
@@ -44,5 +42,23 @@
     "postcss": "^8.4.17",
     "tailwindcss": "^3.1.8",
     "typescript": "~4.3.5"
-  }
+  },
+  "description": "An Angular phone input module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lbgm/phoneInput.git"
+  },
+  "keywords": [
+    "angular",
+    "phone-input",
+    "phone-number-input",
+    "component",
+    "typescript"
+  ],
+  "author": "@lbgm",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/lbgm/phoneInput/issues"
+  },
+  "homepage": "https://github.com/lbgm/phoneInput#readme"
 }
