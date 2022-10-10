@@ -1,7 +1,7 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 @Directive({
-  selector: '[typing]'
+  selector: '[inputTyping]'
 })
 export class TypingDirective {
 
@@ -11,12 +11,14 @@ export class TypingDirective {
   @Output() run = new EventEmitter<void>();
   @Output() finish = new EventEmitter<void>();
 
-  constructor(public el:ElementRef) { }
+  constructor(public el:ElementRef) {
+    console.log({ inputInterval: this.inputInterval })
+  }
 
 
   @HostListener("keydown",['$event'])
   @HostListener("keyup",['$event'])
-  onType(e:any):void{
+  onType(e: Event):void{
     const tping=()=>{
       this.run.emit();
     };
@@ -27,7 +29,7 @@ export class TypingDirective {
 
     if(e.type==="keyup")
     {
-      if(e.key!=="Backspace") tping();
+      if((e as any).key!=="Backspace") tping();
       clearTimeout(this.inputTimer);
       this.inputTimer=setTimeout(tpfinished,this.inputInterval);
     }

@@ -1,23 +1,23 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { find } from 'lodash';
+// import { find } from 'lodash';
 import parsePhoneNumber from "libphonenumber-js";
 
 import allCountries from './all-countries';
 import { FormControl, FormGroup } from '@angular/forms';
 
-interface AllowedCountries {
+export interface AllowedCountries {
   name: string | number;
   iso2: string;
   dialCode: string | number,
 }
 
-interface Country {
+export interface Country {
   name: string;
   dialoCode: string;
   iso2: string;
 }
 
-interface PhoneDATA {
+export interface PhoneDATA {
   country?: string;
   dialCode?: string | number;
   nationalNumber?: string | number;
@@ -25,7 +25,7 @@ interface PhoneDATA {
   isValid?: boolean;
 }
 
-enum FormControlEvent {
+export enum FormControlEvent {
   INVALID = 'INVALID',
   VALID = 'VALID'
 }
@@ -51,7 +51,7 @@ export class PhoneInputComponent implements OnInit {
   @Input() listHeight: number = 150;
   @Input() allowed?: string[] =(["BJ", "CI"]);
 
-  @Input() group!: FormGroup;
+  @Input() group?: FormGroup;
   @Input() controls?: FormControl;
 
   @ViewChild('basePhoneArrow') basePhoneArrow?: ElementRef;
@@ -132,16 +132,24 @@ export class PhoneInputComponent implements OnInit {
     return tbl;
   }
 
+  get getGroup (): FormGroup {
+    return this.group as FormGroup;
+  }
+
+  get getName (): string {
+    return this.name as string;
+  }
+
   get fieldError(): boolean {
     if(!this.controls) return this.hasError ?? false;
     const f = (this.controls as any)[this.name as string] ?? ({});
-    return f.status === (FormControlEvent.INVALID && f.touched && this.required);
+    return f.status === FormControlEvent.INVALID && f.touched && this.required;
   }
 
   get fieldSuccess(): boolean {
     if(!this.controls) return this.hasSuccess ?? false;
     const f = (this.controls as any)[this.name as string] ?? ({});
-    return f.status === (FormControlEvent.VALID && f.touched && this.required);
+    return f.status === FormControlEvent.VALID && f.touched && this.required;
   }
 
 
@@ -155,7 +163,6 @@ export class PhoneInputComponent implements OnInit {
     // calculate popup position: top or bottom
     const selectRect = this.selectPhone?.nativeElement.getBoundingClientRect();
     // y
-    console.log({ selectRect })
     this.popupPos = selectRect.bottom < this.listHeight ? "top" : "bottom";
   };
 
@@ -175,14 +182,14 @@ export class PhoneInputComponent implements OnInit {
         dialCode: phoneNumber.countryCallingCode,
         name: function () {
           return (
-            find(this.countries, { iso2: this.iso2 }) as unknown as { name: string }
+            Array.from(this.countries).find((o: any) => o.iso2 === this.iso2) as unknown as { name: string }
           ).name;
         },
       };
     }
     // else
     return {
-      ...find(this.countries, { iso2: this.defaultCountry }),
+      ...Array.from(this.countries).find((o: any) => o.iso2 === this.defaultCountry),
     };
   };
 

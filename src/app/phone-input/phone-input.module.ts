@@ -11,7 +11,7 @@ import { TypingDirective } from '../typing.directive';
     TypingDirective
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     PhoneInputComponent

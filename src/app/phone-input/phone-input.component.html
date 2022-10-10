@@ -6,7 +6,6 @@
   >
     <!--phone-number-input core-->
     <div
-      [attr.formGroup]="group"
       data-children="core"
       class="w-full flex flex-col relative"
     >
@@ -69,25 +68,50 @@
            {{ '+' + defaultSelected.dialCode }}
           </span>
         </span>
-        <!---->
-        <input
-          #inputBase
-          typing
-          data-children="htmlInput"
-          [placeholder]="placeholder"
-          [attr.formControlName]="name"
-          [name]="name"
-          [id]="name"
-          [value]="phone"
-          [autocomplete]="'off'"
-          [attr.inputInterval]="100"
-          (input)="onPhoneInput($event)"
-          (finish)="emitPhoneData($event)"
-          spellcheck="false"
-          class="border-0 outline-none appearance-none flex-shrink w-full bg-transparent text-3dark text-base"
-          [ngClass]="{ 'text-blue': focus }"
-          type="text"
-        />
+        <!-- INPUT ELEMENT -->
+        <span *ngIf="group; then withGroup; else withoutGroup;"></span>
+        <ng-template #withGroup>
+           <div class="w-full" [formGroup]="getGroup">
+            <input
+                #inputBase
+                inputTyping
+                data-children="htmlInput"
+                [placeholder]="placeholder"
+                [formControlName]="getName"
+                [name]="name"
+                [id]="name"
+                [value]="phone"
+                [autocomplete]="'off'"
+                [inputInterval]="300"
+                (input)="onPhoneInput($event)"
+                (finish)="emitPhoneData($event)"
+                spellcheck="false"
+                class="border-0 outline-none appearance-none flex-shrink w-full bg-transparent text-3dark text-base"
+                [ngClass]="{ 'text-blue': focus }"
+                type="text"
+            />
+            </div>
+       </ng-template>
+
+       <ng-template #withoutGroup>
+            <input
+                #inputBase
+                inputTyping
+                data-children="htmlInput"
+                [placeholder]="placeholder"
+                [name]="name"
+                [id]="name"
+                [value]="phone"
+                [autocomplete]="'off'"
+                [inputInterval]="300"
+                (input)="onPhoneInput($event)"
+                (finish)="emitPhoneData($event)"
+                spellcheck="false"
+                class="border-0 outline-none appearance-none flex-shrink w-full bg-transparent text-3dark text-base"
+                [ngClass]="{ 'text-blue': focus }"
+                type="text"
+            />
+       </ng-template>
       </div>
       <!--select option-->
       <div
@@ -99,7 +123,7 @@
         [style.maxHeight]="listHeight + 'px'"
       >
         <div
-          class="w-full py-2 px-4 cursor-pointer text-left hover:bg-3dark-2"
+          class="w-full py-2 px-4 cursor-pointer text-left hover:bg-3dark-1"
           *ngFor="let country of allowedCountries; let lastitr = last; trackBy: trackByCountry"
           (click)="choose(country)"
           [attr.data-country]="country.iso2"

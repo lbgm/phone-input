@@ -1,12 +1,36 @@
-<div class="w-full h-full mt-10">
+<div class="w-full h-full mt-10 flex flex-col items-center justify-center">
+
+ <span>{{ inputCountry }}</span>
+
+ <span>{{ input }}</span>
+
+ <span>{{ stringify(inputData) }}</span>
+
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
 
 <lbgm-phone-input
- class="max-w-[300px] mx-auto"
+ class="max-w-[300px] mt-4"
  [arrow]="true"
  [label]="'N° de téléphone'"
  [required]="true"
- [hasError]="true"
+ [allowed]="[]"
+ [name]="'phone'"
+ [group]="form"
+ [controls]="form.controls"
+ (phoneEvent)="input=$event"
+ (phoneData)="inputData=$event"
+ (country)="inputCountry=$event"
 >
 </lbgm-phone-input>
+
+<button
+  class="w-full max-w-[300px] mt-4 block appearance-none outline-none px-4 py-2 text-white bg-blue text-center rounded-sm mx-auto active:shadow-md hover:opacity-50"
+  type="submit"
+>
+  Valider
+</button>
+
+</form>
+
 
 </div>
