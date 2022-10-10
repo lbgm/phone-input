@@ -11,9 +11,7 @@ export class TypingDirective {
   @Output() run = new EventEmitter<void>();
   @Output() finish = new EventEmitter<void>();
 
-  constructor(public el:ElementRef) {
-    console.log({ inputInterval: this.inputInterval })
-  }
+  constructor(public el:ElementRef) { }
 
 
   @HostListener("keydown",['$event'])

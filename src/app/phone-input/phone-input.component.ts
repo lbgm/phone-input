@@ -40,8 +40,6 @@ export class PhoneInputComponent implements OnInit {
   @Input() label?: string = "";
   @Input() hasError?: boolean = false;
   @Input() hasSuccess?: boolean = false;
-  @Input() successMessage?: string = "";
-  @Input() errorMessage?: string = "";
   @Input() placeholder?: string = ""
   @Input() name?: string = "lbgm-phone-input"
   @Input() required?: boolean = false;
