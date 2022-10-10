@@ -1,0 +1,98 @@
+:host {
+ display: block;
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+ color: #333;
+ box-sizing: border-box;
+ -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0)/*chrome*/
+{
+  .lbgm-phone-scrll::-webkit-scrollbar
+  {
+   width:6px;
+   height:6px;
+  }
+  .lbgm-phone-scrll::-webkit-scrollbar-track
+  {
+  background:transparent;
+  }
+  .lbgm-phone-scrll::-webkit-scrollbar-thumb
+  {
+    border-radius:6px;
+    background: rgba(0,106,82,.8);
+    border:0;
+    display: none;
+  }
+  .lbgm-phone-scrll:hover
+  {
+    &.lbgm-phone-scrll::-webkit-scrollbar-thumb{
+      display: initial;
+    }
+  }
+  .lbgm-phone-scrll::-webkit-scrollbar-corner
+  {
+    display:none;
+  }
+}
+
+@-moz-document url-prefix()/*firefox*/
+{
+  .lbgm-phone-scrll
+  {
+    scrollbar-color: rgba(0,106,82,.8) transparent;
+    scrollbar-width: none;
+    &:hover{
+    scrollbar-width: thin;
+    }
+  }
+}
+
+
+[data-widget-item="baseinput"] {
+  * {
+    box-sizing: border-box;
+  }
+
+  transition: all 0.2s ease-in-out;
+
+  label {
+    &.error {
+      color: red;
+    }
+
+    &.success {
+      color: #1d90ed;
+    }
+  }
+
+  [data-children="countriesList"] {
+    overflow-y: auto;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.15));
+  }
+
+  [data-children="inputcore"] {
+        input {
+        &::placeholder {
+            font-weight: normal;
+            color: #333;
+        }
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        }
+   }
+
+}
+
+
+
+
+
+
