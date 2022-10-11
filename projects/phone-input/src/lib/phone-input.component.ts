@@ -4,6 +4,7 @@ import parsePhoneNumber from "libphonenumber-js";
 import allCountries from './all-countries';
 import { FormControl, FormGroup } from '@angular/forms';
 
+
 export interface AllowedCountries {
   name: string | number;
   iso2: string;
@@ -32,7 +33,10 @@ export enum FormControlEvent {
 @Component({
   selector: 'lbgm-phone-input',
   templateUrl: './phone-input.component.html',
-  styleUrls: ['./phone-input.component.scss']
+  styleUrls: [
+    './phone-input.component.scss',
+    './tailwind.scss'
+  ]
 })
 export class PhoneInputComponent implements OnInit {
 

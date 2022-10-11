@@ -105,6 +105,37 @@
           }
         }
       }
+    },
+    "phoneInput": {
+      "projectType": "library",
+      "root": "projects/phone-input",
+      "sourceRoot": "projects/phone-input/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/phone-input/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/phone-input/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/phone-input/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/phone-input/src/test.ts",
+            "tsConfig": "projects/phone-input/tsconfig.spec.json",
+            "karmaConfig": "projects/phone-input/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "phone-input"
