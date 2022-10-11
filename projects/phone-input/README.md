@@ -11,7 +11,7 @@ npm i @lbgm/phone-input
 ## Props and default values
 
 ```js
-@Input() value?: string = "";
+@Input() value?: string = ""; // like '22997000000', ${dialCode}${nationalNumber}
 @Input() label?: string = "";
 @Input() hasError?: boolean = false;
 @Input() hasSuccess?: boolean = false;
@@ -19,7 +19,7 @@ npm i @lbgm/phone-input
 @Input() name?: string = "lbgm-phone-input"
 @Input() required?: boolean = false;
 @Input() defaultCountry?: string = 'BJ';
-@Input() arrow?: boolean = true;
+@Input() arrow?: boolean = true; // to show or hide arrow 
 @Input() listHeight: number = 150;
 @Input() allowed?: string[] =(["BJ", "CI"]);
 
@@ -108,6 +108,12 @@ export class AppModule { }
 </lbgm-phone-input>
 ```
 
+```js
+ console.log(input) : 22997788842
+ console.log(inputCountry) : BJ
+ console.log(inputData) : { "country": "BJ", "dialCode": "229", "nationalNumber": "97788842", "number": "+22997788842", "isValid": true }
+```
+
 ### Use with FormBuilder example:
 ```js
 import { Component } from '@angular/core';
@@ -150,8 +156,9 @@ export class AppComponent {
 ```
 ```html
 <!-- error on field -->
-<img width="433" alt="image" src="https://user-images.githubusercontent.com/92580505/195069320-82476a00-8fa3-476b-bc42-e29c7b21f78a.png">
 ```
+<img width="433" alt="image" src="https://user-images.githubusercontent.com/92580505/195069690-42eef768-ad1d-4b48-aef1-9708d65ecf07.png">
+
 
 
 <!-- ## Code scaffolding
