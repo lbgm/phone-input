@@ -145,10 +145,6 @@ export class AppComponent {
      })
   }
 
-  stringify (json: any) : string {
-    return window.JSON.stringify(json);
-  }
-
   onSubmit(): void {
     this.form.markAllAsTouched();
   }
