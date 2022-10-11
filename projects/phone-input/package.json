@@ -8,11 +8,6 @@
   "scripts": {
     "build-scss": "npx tailwindcss -i ./src/styles.scss -o ./src/lib/tailwind.scss"
   },
-  "exports": {
-    ".": {
-      "sass" : "./src/lib/tailwind.scss"
-    }
-  },
   "peerDependencies": {
     "@angular/common": "^12.2.0",
     "@angular/core": "^12.2.0",
