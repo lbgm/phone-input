@@ -10,11 +10,11 @@
   },
   "peerDependencies": {
     "@angular/common": "^12.2.0",
-    "@angular/core": "^12.2.0",
-    "libphonenumber-js": "^1.10.13"
+    "@angular/core": "^12.2.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "libphonenumber-js": "^1.10.13"
   },
   "description": "An Angular phone input module",
   "repository": {

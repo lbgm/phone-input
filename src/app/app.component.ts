@@ -16,7 +16,7 @@ export class AppComponent {
 
 
   constructor(private fb: FormBuilder) {
-     this.form = fb.group({
+     this.form = this.fb.group({
       'phone': [
         '',
         [
