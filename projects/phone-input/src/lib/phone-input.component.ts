@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import parsePhoneNumber from "libphonenumber-js";
+import parsePhoneNumber, { PhoneNumber } from "libphonenumber-js";
 
 import allCountries, { T_Country } from './all-countries';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
@@ -176,14 +176,14 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   * @param val
   */
   formatPhoneInput (val: string): T_Country {
-    const phoneNumber: any = parsePhoneNumber(`+${val}`);
+    const phoneNumber: PhoneNumber | undefined = parsePhoneNumber(`+${val}`);
     if (phoneNumber) {
       this.phone = phoneNumber.nationalNumber;
 
       return {
-        iso2: phoneNumber.country,
-        dialCode: phoneNumber.countryCallingCode,
-        name: this.countries.find((o: T_Country) => o.iso2 === phoneNumber.country)?.name as string,
+        iso2: phoneNumber?.country as string,
+        dialCode: phoneNumber?.countryCallingCode as string,
+        name: this.countries.find((o: T_Country) => o.iso2 === phoneNumber?.country as string)?.name as string,
       };
     }
     // else
