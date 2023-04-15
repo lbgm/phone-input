@@ -6,7 +6,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 export { T_Country };
 
-type T_FormFieldControl = { [key: string]: AbstractControl; };
+export type T_FormFieldControl = { [key: string]: AbstractControl; };
 
 export interface PhoneDATA {
   country?: string;

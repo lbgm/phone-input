@@ -14,6 +14,8 @@ npm i @lbgm/phone-input
 ## Props and default values
 
 ```ts
+export type T_FormFieldControl = { [key: string]: AbstractControl; };
+
 @Input() value?: string = ""; // like '22997000000', ${dialCode}${nationalNumber}
 @Input() label?: string = "";
 @Input() hasError?: boolean = false;
@@ -27,7 +29,7 @@ npm i @lbgm/phone-input
 @Input() allowed?: string[] = (["BJ", "CI"]); // pass [] to show all countries
 
 @Input() group?: FormGroup;
-@Input() controls?: FormControl;
+@Input() controls?: T_FormFieldControl;
 ```
 
 ## Slots
