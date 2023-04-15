@@ -3,7 +3,7 @@
 An Angular phone input component module.
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
 
-![PhoneInput screenshot](https://user-images.githubusercontent.com/92580505/195067115-6f5bcaed-daef-4493-b95e-70a81639a9c1.png)
+![PhoneInput screenshot](https://user-images.githubusercontent.com/92580505/232258765-222d4527-6317-4bc4-a799-70582e351eaf.png)
 
 ## Install
 
@@ -164,7 +164,7 @@ export class AppComponent {
 
 ## Error on field
 
-![Error case screenshot](https://user-images.githubusercontent.com/92580505/195069690-42eef768-ad1d-4b48-aef1-9708d65ecf07.png)
+![Error case screenshot](https://user-images.githubusercontent.com/92580505/232258806-5453bde3-d92a-42ad-b226-30a45c6624be.png)
 
 <!-- ## Code scaffolding
 
