@@ -41,10 +41,10 @@
             >
               <span *ngIf="arrow; then iconTemplate"></span>
               <ng-template #iconTemplate>
-                <span #icon [ngClass]="{ hasIcon }" class="inline-flex flex-shrink-0">
+                <span #arrowIcon [attr.data-arrow-icon]="arrowIcon.children.length" class="inline-flex flex-shrink-0 select-none">
                   <ng-content select="[arrow]"></ng-content>
                 </span>
-                <span *ngIf="!hasIcon" [ngClass]="{ hasIcon }" class="inline-flex flex-shrink-0">
+                <span *ngIf="!arrowIcon.children.length" [attr.data-arrow-icon]="arrowIcon.children.length" class="inline-flex flex-shrink-0">
                   <svg
                     width="12"
                     height="6"

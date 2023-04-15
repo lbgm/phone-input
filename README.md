@@ -11,12 +11,20 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 npm i @lbgm/phone-input
 ```
 
-## Props and default values
+## Props & Types
 
 ```ts
 export type T_FormFieldControl = { [key: string]: AbstractControl; };
 
-@Input() value?: string = ""; // like '22997000000', ${dialCode}${nationalNumber}
+export interface PhoneDATA {
+  country?: string;
+  dialCode?: string | number;
+  nationalNumber?: string | number;
+  number?: string | number;
+  isValid?: boolean;
+}
+
+@Input() value?: string = ""; // like '22997000000'
 @Input() label?: string = "";
 @Input() hasError?: boolean = false;
 @Input() hasSuccess?: boolean = false;
@@ -26,11 +34,14 @@ export type T_FormFieldControl = { [key: string]: AbstractControl; };
 @Input() defaultCountry?: string = 'BJ';
 @Input() arrow?: boolean = true; // to show or hide arrow
 @Input() listHeight?: number = 150;
-@Input() allowed?: string[] = (["BJ", "CI"]); // pass [] to show all countries
+@Input() allowed?: string[] = ([]);
 
 @Input() group?: FormGroup;
 @Input() controls?: T_FormFieldControl;
 ```
+
+- pass `value` on this format: `${dialCode}${nationalNumber}`
+- `allowed` is an array of country iso2 (string).
 
 ## Slots
 
@@ -86,7 +97,6 @@ export class AppModule { }
  [arrow]="true"
  [label]="'N° de téléphone'"
  [required]="true"
- [allowed]="[]"
  [name]="'phone'"
  [group]="form"
  [controls]="form.controls"
@@ -102,7 +112,6 @@ export class AppModule { }
  [arrow]="true"
  [label]="'N° de téléphone'"
  [required]="true"
- [allowed]="[]"
  [name]="'phone'"
  (phoneEvent)="input=$event"
  (phoneData)="inputData=$event"
@@ -111,11 +120,9 @@ export class AppModule { }
 </lbgm-phone-input>
 ```
 
-```js
- console.log(input) : 22997788842
- console.log(inputCountry) : BJ
- console.log(inputData) : { "country": "BJ", "dialCode": "229", "nationalNumber": "97788842", "number": "+22997788842", "isValid": true }
-```
+- phoneEvent is string
+- country is string
+- phoneData is type [PhoneDATA](#props--types)
 
 ### Use with FormBuilder example
 
@@ -155,7 +162,7 @@ export class AppComponent {
 }
 ```
 
-> error on field
+## Error on field
 
 ![Error case screenshot](https://user-images.githubusercontent.com/92580505/195069690-42eef768-ad1d-4b48-aef1-9708d65ecf07.png)
 

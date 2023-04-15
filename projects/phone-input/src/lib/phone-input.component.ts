@@ -41,23 +41,20 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() defaultCountry?: string = 'BJ';
   @Input() arrow?: boolean = true;
   @Input() listHeight?: number = 150;
-  @Input() allowed?: string[] = (["BJ", "CI"]);
+  @Input() allowed?: string[] = ([]);
 
   @Input() group?: FormGroup;
   @Input() controls?: T_FormFieldControl;
 
   @ViewChild('basePhoneArrow') basePhoneArrow?: ElementRef;
   @ViewChild('inputBase') inputBase?: ElementRef;
-  @ViewChild('icon', { static: true }) iconEl?: ElementRef;
+  @ViewChild('arrowIcon', { static: true }) arrowIcon?: ElementRef;
   @ViewChild('selectPhone') selectPhone?: ElementRef;
-
 
   @Output() phoneEvent = new EventEmitter<string>(true);
   @Output() phoneData = new EventEmitter<PhoneDATA>(true);
   @Output() country = new EventEmitter<string>(true);
 
-
-  hasIcon: boolean = false;
   countries: T_Country[] = allCountries;
   openSelect: boolean = false;
   defaultSelected!: T_Country;
@@ -80,8 +77,6 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.hasIcon = this.iconEl?.nativeElement?.innerHTML !== '';
-
     // initialize default country selected
     this.defaultSelected = this.formatPhoneInput(this.value as string);
   }
@@ -97,7 +92,6 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.emitAll();
-
     // outside
     document.addEventListener("click", (event) => {
       if (
