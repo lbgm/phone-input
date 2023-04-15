@@ -1,17 +1,19 @@
 # PhoneInput
-An Angular phone input module
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
+An Angular phone input component module.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
 
-<img width="433" alt="image" src="https://user-images.githubusercontent.com/92580505/195067115-6f5bcaed-daef-4493-b95e-70a81639a9c1.png">
+![PhoneInput screenshot](https://user-images.githubusercontent.com/92580505/195067115-6f5bcaed-daef-4493-b95e-70a81639a9c1.png)
 
 ## Install
+
 ```sh
 npm i @lbgm/phone-input
 ```
+
 ## Props and default values
 
-```js
+```ts
 @Input() value?: string = ""; // like '22997000000', ${dialCode}${nationalNumber}
 @Input() label?: string = "";
 @Input() hasError?: boolean = false;
@@ -20,9 +22,9 @@ npm i @lbgm/phone-input
 @Input() name?: string = "lbgm-phone-input"
 @Input() required?: boolean = false;
 @Input() defaultCountry?: string = 'BJ';
-@Input() arrow?: boolean = true; // to show or hide arrow 
-@Input() listHeight: number = 150;
-@Input() allowed?: string[] =(["BJ", "CI"]);
+@Input() arrow?: boolean = true; // to show or hide arrow
+@Input() listHeight?: number = 150;
+@Input() allowed?: string[] = (["BJ", "CI"]); // pass [] to show all countries
 
 @Input() group?: FormGroup;
 @Input() controls?: FormControl;
@@ -43,9 +45,9 @@ npm i @lbgm/phone-input
 <ng-content select="[slot]"></ng-content>
 ```
 
-
 ## Use
-```js
+
+```ts
 // app.module.ts
 
 import { NgModule } from '@angular/core';
@@ -79,7 +81,6 @@ export class AppModule { }
 ```html
 <!-- with FormBuilder, the component handle error automatically -->
 <lbgm-phone-input
- class="max-w-[300px] mt-4"
  [arrow]="true"
  [label]="'N° de téléphone'"
  [required]="true"
@@ -96,7 +97,6 @@ export class AppModule { }
 
 <!-- without FormBuilder -->
 <lbgm-phone-input
- class="max-w-[300px] mt-4"
  [arrow]="true"
  [label]="'N° de téléphone'"
  [required]="true"
@@ -115,10 +115,11 @@ export class AppModule { }
  console.log(inputData) : { "country": "BJ", "dialCode": "229", "nationalNumber": "97788842", "number": "+22997788842", "isValid": true }
 ```
 
-### Use with FormBuilder example:
-```js
+### Use with FormBuilder example
+
+```ts
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { PhoneDATA } from '@lbgm/phone-input';
 
 @Component({
@@ -128,7 +129,7 @@ import { PhoneDATA } from '@lbgm/phone-input';
 })
 export class AppComponent {
   title = 'phone-input';
-  form: any;
+  form: FormGroup;
   input?: string = "";
   inputData?: PhoneDATA;
   inputCountry: string = "";
@@ -151,8 +152,29 @@ export class AppComponent {
   }
 }
 ```
-```html
-<!-- error on field -->
-```
-<img width="433" alt="image" src="https://user-images.githubusercontent.com/92580505/195069690-42eef768-ad1d-4b48-aef1-9708d65ecf07.png">
 
+> error on field
+
+![Error case screenshot](https://user-images.githubusercontent.com/92580505/195069690-42eef768-ad1d-4b48-aef1-9708d65ecf07.png)
+
+<!-- ## Code scaffolding
+
+Run `ng generate component component-name --project phoneInput` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project phoneInput`.
+> Note: Don't forget to add `--project phoneInput` or else it will be added to the default project in your `angular.json` file.
+
+## Build
+
+Run `ng build phoneInput` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Publishing
+
+After building your library with `ng build phoneInput`, go to the dist folder `cd dist/phone-input` and run `npm publish`.
+
+## Running unit tests
+
+Run `ng test phoneInput` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-->
