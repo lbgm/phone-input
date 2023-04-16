@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import parsePhoneNumber from "libphonenumber-js";
 
 import allCountries from './all-countries';
 import { FormControl, FormGroup } from '@angular/forms';
+
 
 export interface AllowedCountries {
   name: string | number;
@@ -32,9 +33,12 @@ export enum FormControlEvent {
 @Component({
   selector: 'lbgm-phone-input',
   templateUrl: './phone-input.component.html',
-  styleUrls: ['./phone-input.component.scss']
+  styleUrls: [
+    './tailwind.scss',
+    './phone-input.component.scss',
+  ]
 })
-export class PhoneInputComponent implements OnInit {
+export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() value?: string = "";
   @Input() label?: string = "";
@@ -71,7 +75,7 @@ export class PhoneInputComponent implements OnInit {
   popupPos: string = "bottom";
   focus: boolean = false;
 
-  constructor(public el: ElementRef) { }
+  constructor(public el: ElementRef, private cd: ChangeDetectorRef) { }
 
 
   /**
@@ -93,6 +97,15 @@ export class PhoneInputComponent implements OnInit {
     this.defaultSelected = this.formatPhoneInput(this.value ?? '') as Record<any, any>;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    //
+    // watch changes on @Input() here
+  }
+
+  ngDoCheck() {
+    // this.cd.markForCheck();
+  }
+
   ngAfterViewInit(): void {
     this.emitAll();
 
@@ -112,9 +125,11 @@ export class PhoneInputComponent implements OnInit {
   * used to send custom Event: usable in case of scroll turning off when popup is under
   */
   cev_dash_select(): void {
+  
     const event = new CustomEvent("CEV_SELECT_POPUP", {
       detail: { opened: this.openSelect, target: this.selectPhone?.nativeElement },
     });
+
     document.body.dispatchEvent(event);
   }
 
@@ -161,6 +176,8 @@ export class PhoneInputComponent implements OnInit {
     const selectRect = this.selectPhone?.nativeElement.getBoundingClientRect();
     // y
     this.popupPos = selectRect.bottom < this.listHeight ? "top" : "bottom";
+    //
+    this.cev_dash_select();
   };
 
 

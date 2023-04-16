@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { PhoneDATA } from './phone-input/phone-input.component';
+import { PhoneDATA } from 'phone-input';
 
 @Component({
   selector: 'app-root',

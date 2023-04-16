@@ -1,7 +1,6 @@
 # PhoneInput
-An Angular phone input module
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
+An Angular phone input component module.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.0.
 
 <img width="433" alt="image" src="https://user-images.githubusercontent.com/92580505/195067115-6f5bcaed-daef-4493-b95e-70a81639a9c1.png">
 
@@ -156,3 +155,26 @@ export class AppComponent {
 ```
 <img width="433" alt="image" src="https://user-images.githubusercontent.com/92580505/195069690-42eef768-ad1d-4b48-aef1-9708d65ecf07.png">
 
+
+
+<!-- ## Code scaffolding
+
+Run `ng generate component component-name --project phoneInput` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project phoneInput`.
+> Note: Don't forget to add `--project phoneInput` or else it will be added to the default project in your `angular.json` file. 
+
+## Build
+
+Run `ng build phoneInput` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Publishing
+
+After building your library with `ng build phoneInput`, go to the dist folder `cd dist/phone-input` and run `npm publish`.
+
+## Running unit tests
+
+Run `ng test phoneInput` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-->

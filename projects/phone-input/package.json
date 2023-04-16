@@ -1,0 +1,45 @@
+{
+  "name": "@lbgm/phone-input",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=14.18.3",
+    "npm": ">=6.14.15"
+  },
+  "scripts": {
+    "build-scss": "npx tailwindcss -i ./src/styles.scss -o ./src/lib/tailwind.scss"
+  },
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "libphonenumber-js": "^1.10.13"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "description": "An Angular phone input module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lbgm/phoneInput.git"
+  },
+  "keywords": [
+    "angular",
+    "phone-input",
+    "phone-number-input",
+    "component",
+    "typescript",
+    "lbgm",
+    "angular material",
+    "angular material component"
+  ],
+  "author": "@lbgm",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/lbgm/phoneInput/issues"
+  },
+  "homepage": "https://github.com/lbgm/phoneInput#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.17",
+    "tailwindcss": "^3.1.8"
+  }
+}
