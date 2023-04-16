@@ -12,6 +12,12 @@
 //    iso2 code,
 //    International dial code
 // ]
+export type T_Country = {
+  name: string | number;
+  iso2: string;
+  dialCode: string | number;
+}
+
 const allCountries = [
     [
       'Afghanistan (‫افغانستان‬‎)',
@@ -1235,4 +1241,4 @@ const allCountries = [
     name,
     iso2: String(iso2).toUpperCase(),
     dialCode,
-  }));
+  })) as T_Country[];

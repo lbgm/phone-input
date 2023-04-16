@@ -1,21 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import parsePhoneNumber from "libphonenumber-js";
 
-import allCountries from './all-countries';
-import { FormControl, FormGroup } from '@angular/forms';
+import allCountries, { T_Country } from './all-countries';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
+export { T_Country };
 
-export interface AllowedCountries {
-  name: string | number;
-  iso2: string;
-  dialCode: string | number,
-}
-
-export interface Country {
-  name: string;
-  dialoCode: string;
-  iso2: string;
-}
+type T_FormFieldControl = { [key: string]: AbstractControl; };
 
 export interface PhoneDATA {
   country?: string;
@@ -49,11 +40,11 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() required?: boolean = false;
   @Input() defaultCountry?: string = 'BJ';
   @Input() arrow?: boolean = true;
-  @Input() listHeight: number = 150;
-  @Input() allowed?: string[] =(["BJ", "CI"]);
+  @Input() listHeight?: number = 150;
+  @Input() allowed?: string[] = (["BJ", "CI"]);
 
   @Input() group?: FormGroup;
-  @Input() controls?: FormControl;
+  @Input() controls?: T_FormFieldControl;
 
   @ViewChild('basePhoneArrow') basePhoneArrow?: ElementRef;
   @ViewChild('inputBase') inputBase?: ElementRef;
@@ -67,10 +58,9 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   hasIcon: boolean = false;
-  countries: AllowedCountries[] = allCountries;
+  countries: T_Country[] = allCountries;
   openSelect: boolean = false;
-  defaultSelected: Record<string, string> = ({});
-  filterCountries?: string[] = [];
+  defaultSelected!: T_Country;
   phone: string = "";
   popupPos: string = "bottom";
   focus: boolean = false;
@@ -84,17 +74,16 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
    * @param item
    * @returns
    */
-   trackByCountry(index: number, country: Country): number {
+   trackByCountry(index: number, country: T_Country): number {
     return index;
     // you can also return item.X;
   }
 
   ngOnInit(): void {
-    this.filterCountries = this.allowed;
-    this.hasIcon = ((this.iconEl ?? ({}))?.nativeElement?.innerHTML ?? '').trim() !== '';
+    this.hasIcon = this.iconEl?.nativeElement?.innerHTML !== '';
 
     // initialize default country selected
-    this.defaultSelected = this.formatPhoneInput(this.value ?? '') as Record<any, any>;
+    this.defaultSelected = this.formatPhoneInput(this.value as string);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -125,7 +114,7 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   * used to send custom Event: usable in case of scroll turning off when popup is under
   */
   cev_dash_select(): void {
-  
+
     const event = new CustomEvent("CEV_SELECT_POPUP", {
       detail: { opened: this.openSelect, target: this.selectPhone?.nativeElement },
     });
@@ -136,10 +125,10 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   /**
   * filt allowedCountries from props
   */
-  get allowedCountries(): Country[] {
-    const tbl: any =
-      Array.from(this.filterCountries ?? []).length !== 0
-        ? this.countries.filter((o: { iso2: string; }) => Array.from(this.filterCountries ?? []).includes(o.iso2))
+  get allowedCountries(): T_Country[] {
+    const tbl: T_Country[] =
+      (this.allowed as string[]).length !== 0
+        ? this.countries.filter((o: T_Country) => (this.allowed as string[]).includes(o.iso2))
         : this.countries;
     return tbl;
   }
@@ -154,14 +143,14 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
 
   get fieldError(): boolean {
     if(!this.controls) return this.hasError ?? false;
-    const f = (this.controls as any)[this.name as string] ?? ({});
-    return f.status === FormControlEvent.INVALID && f.touched && this.required;
+    const f = (this.controls as T_FormFieldControl)[this.name as string];
+    return f.status === FormControlEvent.INVALID && f.touched && this.required as boolean;
   }
 
   get fieldSuccess(): boolean {
     if(!this.controls) return this.hasSuccess ?? false;
-    const f = (this.controls as any)[this.name as string] ?? ({});
-    return f.status === FormControlEvent.VALID && f.touched && this.required;
+    const f = (this.controls as T_FormFieldControl)[this.name as string];
+    return f.status === FormControlEvent.VALID && f.touched && this.required as boolean;
   }
 
 
@@ -175,7 +164,7 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
     // calculate popup position: top or bottom
     const selectRect = this.selectPhone?.nativeElement.getBoundingClientRect();
     // y
-    this.popupPos = selectRect.bottom < this.listHeight ? "top" : "bottom";
+    this.popupPos = selectRect.bottom < (this.listHeight as number) ? "top" : "bottom";
     //
     this.cev_dash_select();
   };
@@ -186,7 +175,7 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   * used to format Phone Input
   * @param val
   */
-  formatPhoneInput (val: string): Record<any, any> | undefined {
+  formatPhoneInput (val: string): T_Country {
     const phoneNumber: any = parsePhoneNumber(`+${val}`);
     if (phoneNumber) {
       this.phone = phoneNumber.nationalNumber;
@@ -194,16 +183,12 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
       return {
         iso2: phoneNumber.country,
         dialCode: phoneNumber.countryCallingCode,
-        name: function () {
-          return (
-            Array.from(this.countries).find((o: any) => o.iso2 === this.iso2) as unknown as { name: string }
-          ).name;
-        },
+        name: this.countries.find((o: T_Country) => o.iso2 === phoneNumber.country)?.name as string,
       };
     }
     // else
     return {
-      ...Array.from(this.countries).find((o: any) => o.iso2 === this.defaultCountry),
+      ...this.countries.find((o: T_Country) => o.iso2 === this.defaultCountry) as T_Country,
     };
   };
 
@@ -223,7 +208,8 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   * Used to emit phoneData as an object
   * @returns {}
   */
-  emitPhoneData(event?: any): void {
+  emitPhoneData(event?: Event): void {
+    void event;
     const ph = parsePhoneNumber(
       `+${this.defaultSelected.dialCode}${this.phone}`
     );
@@ -250,8 +236,8 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   * to select any country
   * @param country
   */
-  choose(country: Country) {
-    this.defaultSelected = country as unknown as Record<string, string>;
+  choose(country: T_Country) {
+    this.defaultSelected = country;
     this.openSelect = false;
     this.emitAll();
   };

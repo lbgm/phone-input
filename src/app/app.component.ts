@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PhoneDATA } from 'phone-input';
 
 @Component({
@@ -9,14 +9,14 @@ import { PhoneDATA } from 'phone-input';
 })
 export class AppComponent {
   title = 'phone-input';
-  form: any;
+  form: FormGroup;
   input?: string = "";
   inputData?: PhoneDATA;
   inputCountry: string = "";
 
 
   constructor(private fb: FormBuilder) {
-     this.form = fb.group({
+     this.form = this.fb.group({
       'phone': [
         '',
         [
