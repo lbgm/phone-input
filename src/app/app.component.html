@@ -1,19 +1,13 @@
 <div class="w-full h-full mt-10 flex flex-col items-center justify-center">
 
- <span>{{ inputCountry }}</span>
-
- <span>{{ input }}</span>
-
- <span>{{ stringify(inputData) }}</span>
+<!-- phone component -->
 
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
 
 <lbgm-phone-input
- class="max-w-[300px] mt-4"
- [arrow]="true"
+ class="max-w-xs mt-4"
  [label]="'N° de téléphone'"
  [required]="true"
- [allowed]="[]"
  [name]="'phone'"
  [group]="form"
  [controls]="form.controls"
@@ -24,7 +18,7 @@
 </lbgm-phone-input>
 
 <button
-  class="select-none w-full max-w-[300px] mt-4 block appearance-none outline-none px-4 py-2 text-white bg-blue text-center rounded-sm mx-auto active:shadow-md hover:opacity-50"
+  class="select-none w-full max-w-xs mt-4 block appearance-none outline-none px-4 py-2 text-white bg-blue text-center rounded-sm mx-auto active:shadow-md hover:opacity-50"
   type="submit"
 >
   Valider

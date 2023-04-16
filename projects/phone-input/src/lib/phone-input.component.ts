@@ -1,12 +1,12 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import parsePhoneNumber from "libphonenumber-js";
+import parsePhoneNumber, { PhoneNumber } from "libphonenumber-js";
 
 import allCountries, { T_Country } from './all-countries';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 export { T_Country };
 
-type T_FormFieldControl = { [key: string]: AbstractControl; };
+export type T_FormFieldControl = { [key: string]: AbstractControl; };
 
 export interface PhoneDATA {
   country?: string;
@@ -41,23 +41,20 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() defaultCountry?: string = 'BJ';
   @Input() arrow?: boolean = true;
   @Input() listHeight?: number = 150;
-  @Input() allowed?: string[] = (["BJ", "CI"]);
+  @Input() allowed?: string[] = ([]);
 
   @Input() group?: FormGroup;
   @Input() controls?: T_FormFieldControl;
 
   @ViewChild('basePhoneArrow') basePhoneArrow?: ElementRef;
   @ViewChild('inputBase') inputBase?: ElementRef;
-  @ViewChild('icon', { static: true }) iconEl?: ElementRef;
+  @ViewChild('arrowIcon', { static: true }) arrowIcon?: ElementRef;
   @ViewChild('selectPhone') selectPhone?: ElementRef;
-
 
   @Output() phoneEvent = new EventEmitter<string>(true);
   @Output() phoneData = new EventEmitter<PhoneDATA>(true);
   @Output() country = new EventEmitter<string>(true);
 
-
-  hasIcon: boolean = false;
   countries: T_Country[] = allCountries;
   openSelect: boolean = false;
   defaultSelected!: T_Country;
@@ -80,8 +77,6 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.hasIcon = this.iconEl?.nativeElement?.innerHTML !== '';
-
     // initialize default country selected
     this.defaultSelected = this.formatPhoneInput(this.value as string);
   }
@@ -97,7 +92,6 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.emitAll();
-
     // outside
     document.addEventListener("click", (event) => {
       if (
@@ -176,14 +170,14 @@ export class PhoneInputComponent implements OnInit, AfterViewInit, OnChanges {
   * @param val
   */
   formatPhoneInput (val: string): T_Country {
-    const phoneNumber: any = parsePhoneNumber(`+${val}`);
+    const phoneNumber: PhoneNumber | undefined = parsePhoneNumber(`+${val}`);
     if (phoneNumber) {
       this.phone = phoneNumber.nationalNumber;
 
       return {
-        iso2: phoneNumber.country,
-        dialCode: phoneNumber.countryCallingCode,
-        name: this.countries.find((o: T_Country) => o.iso2 === phoneNumber.country)?.name as string,
+        iso2: phoneNumber?.country as string,
+        dialCode: phoneNumber?.countryCallingCode as string,
+        name: this.countries.find((o: T_Country) => o.iso2 === phoneNumber?.country as string)?.name as string,
       };
     }
     // else
