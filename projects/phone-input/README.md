@@ -46,7 +46,7 @@ export interface PhoneDATA {
 ## Slots
 
 ```html
-<!-- add an element with attribute `arrow` for icon. -->
+<!-- add an element with attribute `arrow` to replace arrow icon. -->
 <!-- ng-content code: -->
 <ng-content select="[arrow]"></ng-content>
 
@@ -94,7 +94,6 @@ export class AppModule { }
 ```html
 <!-- with FormBuilder, the component handle error automatically -->
 <lbgm-phone-input
- [arrow]="true"
  [label]="'N° de téléphone'"
  [required]="true"
  [name]="'phone'"
@@ -109,7 +108,6 @@ export class AppModule { }
 
 <!-- without FormBuilder -->
 <lbgm-phone-input
- [arrow]="true"
  [label]="'N° de téléphone'"
  [required]="true"
  [name]="'phone'"

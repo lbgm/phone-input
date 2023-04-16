@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, 
 import parsePhoneNumber, { PhoneNumber } from "libphonenumber-js";
 
 import allCountries, { T_Country } from './all-countries';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 export { T_Country };
 
